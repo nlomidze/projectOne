@@ -9,23 +9,97 @@ public class Main {
 
     public static void main(String[] args) {
         taskMap = new HashMap<>();
-        authenticate();
         taskMap.put("test limited task", new LimitedTimeTask( "taskName1 ", userName, LocalDateTime.now()));
         taskMap.put("test repeatable task", new RepeatableTask( "taskName2", userName, 1));
 
-        edit();
+
+        Scanner scanner = new Scanner(System.in);
+        authenticate(scanner);
+        int choice=0;
+
+        do {
+            System.out.println("[1]- Save");
+            System.out.println("[2]- Retrieve tasks");
+            System.out.println("[3]- Update a specific task");
+            System.out.println("[4]- Register");
+            System.out.println("[5]- Delete a specific task");
+            System.out.println("[6]- Take on a specific task");
+            System.out.println("[7]- Exit\n");
+
+            System.out.print("Enter your choice: ");
+            String choiceString = scanner.nextLine();
+            Integer choiceInteger = Integer.valueOf(choiceString);
+            if(choiceInteger > 0){
+                choice = choiceInteger;
+            }
+            System.out.println("\n-----------------------------\n");
+
+            switch (choice) {
+                case 1:
+                    createTask(scanner);
+                    break;
+                case 2:
+                    getTaskList();
+                    break;
+                case 3:
+                    updateTask(scanner);
+                    break;
+                case 4:
+                    authenticate(scanner);
+                    break;
+                case 5:
+                    deleteTask(scanner);
+                    break;
+                case 6:
+                    getTask(scanner);
+                    break;
+                case 7:
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 7);
+
+        scanner.close();
+
     }
 
-    public static void authenticate(){
-        Scanner scanner = new Scanner(System.in);
+    //todo დააბრუნოს სიიდან სახელის მიხედვით
+    private static void getTask(Scanner scanner) {
+
+    }
+
+    private static void deleteTask(Scanner scanner) {
+        System.out.print("enter task name: ");
+        String taskName = scanner.nextLine();
+        if(taskMap.containsKey(taskName)){
+            taskMap.remove(taskName);
+            System.out.println("ტასკი წარმატებით წაიშალა\n");
+        }else {
+            System.out.println("ასეთი სახელით ტასკი არ არსებობს\n");
+        }
+    }
+
+    //todo დააბრუნოს მთლიანი სია
+    private static void getTaskList() {
+
+    }
+
+    //todo შექმნას ახალი
+    private static void createTask(Scanner scanner) {
+
+    }
+
+    public static void authenticate(Scanner scanner){
         System.out.print("enter userName: ");
         userName = scanner.nextLine();
         System.out.print("userName is "+userName+"\n");
     }
 
-    public static void edit() {
+    public static void updateTask(Scanner scanner) {
 
-        Scanner scanner = new Scanner(System.in);
         System.out.print("enter task name: ");
         String taskName = scanner.nextLine();
 
